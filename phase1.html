@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Phase 1 — ML Foundations | AI & ML Roadmap</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-alt: #0b0d16;
+      --card: #101321;
+      --accent: #55ffc4;
+      --accent-soft: rgba(85,255,196,0.15);
+      --text: #f5f7ff;
+      --muted: #a5acc7;
+      --border: #262b3f;
+      --link: #7de0ff;
+      --link-hover: #c3f4ff;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: radial-gradient(circle at top, #11152b 0, #05060a 55%, #020308 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to right, rgba(5,6,10,0.94), rgba(8,10,20,0.96));
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0.65rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.98rem;
+    }
+    .brand-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: conic-gradient(from 210deg, #55ffc4, #7de0ff, #b98cff, #55ffc4);
+      position: relative;
+      box-shadow: 0 0 18px rgba(85,255,196,0.55);
+    }
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 6px;
+      background: radial-gradient(circle at 30% 0%, rgba(255,255,255,0.3), transparent 55%),
+                  #05060a;
+    }
+    .brand-text-main {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+    .brand-text-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.84rem;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--link-hover);
+      border-color: var(--accent-soft);
+      background: radial-gradient(circle at top left, var(--accent-soft), transparent 50%);
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 3rem;
+    }
+    .hero {
+      padding: 1.4rem 1.4rem 1.1rem;
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at top left, rgba(85,255,196,0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(125,224,255,0.08), transparent 55%),
+        linear-gradient(135deg, rgba(9,12,30,0.96), rgba(7,9,22,0.98));
+      box-shadow:
+        0 26px 60px rgba(0,0,0,0.75),
+        inset 0 0 0 1px rgba(255,255,255,0.01);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      margin: 0 0 0.4rem;
+      font-size: 1.7rem;
+    }
+    .hero p {
+      margin: 0.1rem 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(3,255,179,0.12);
+      border: 1px solid rgba(85,255,196,0.55);
+      color: var(--accent);
+      margin-bottom: 0.55rem;
+    }
+    .hero-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(85,255,196,0.9);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      gap: 1.3rem;
+      align-items: flex-start;
+    }
+    .card {
+      background: linear-gradient(145deg, rgba(9,11,25,0.98), rgba(6,8,18,0.98));
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      padding: 1rem 1.1rem 1.05rem;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+    }
+    .card h2, .card h3 {
+      margin-top: 0.1rem;
+      margin-bottom: 0.45rem;
+      font-size: 1.05rem;
+    }
+    .card p {
+      margin: 0.2rem 0 0.4rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+      margin-bottom: 0.35rem;
+    }
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(92,105,164,0.9);
+      background: radial-gradient(circle at top, rgba(125,224,255,0.08), transparent 55%);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    h1, h2, h3 {
+      font-weight: 600;
+    }
+    h2.section-title {
+      margin-top: 1.6rem;
+      font-size: 1.15rem;
+    }
+    ul {
+      padding-left: 1.1rem;
+      margin: 0.3rem 0 0.8rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    li {
+      margin-bottom: 0.25rem;
+    }
+    a {
+      color: var(--link);
+    }
+    a:hover {
+      color: var(--link-hover);
+    }
+    code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.82rem;
+      background: rgba(9,12,30,0.9);
+      border-radius: 4px;
+      padding: 0.08rem 0.3rem;
+      border: 1px solid rgba(52,59,96,0.9);
+    }
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero {
+        padding: 1.1rem 1rem 0.95rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+      .nav-inner {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>
+          <div class="brand-text-main">AI & ML Roadmap</div>
+          <div class="brand-text-sub">Strictly AI / ML · No Quant</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Overview</a>
+        <a href="phase0.html">Phases</a>
+        <a href="math.html">Math</a>
+        <a href="projects.html">Projects</a>
+        <a href="career.html">Career</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+  
+<section class="hero">
+  <div class="hero-pill"><span class="hero-pill-dot"></span> Phase 1 · 6–8 weeks</div>
+  <h1>Phase 1 — Machine Learning Foundations</h1>
+  <p>Learn classic ML, model training, and evaluation while slowly layering in the essential math.</p>
+</section>
+
+<section class="card">
+  <h2>Main Course</h2>
+  <ul>
+    <li><strong>Andrew Ng — Machine Learning Specialization</strong><br>
+      <a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">
+        coursera.org/specializations/machine-learning-introduction
+      </a></li>
+  </ul>
+  <h3>Supplemental (do in parallel)</h3>
+  <ul>
+    <li><a href="https://www.kaggle.com/learn/intro-to-machine-learning" target="_blank">Kaggle — Intro to ML</a></li>
+    <li><a href="https://www.kaggle.com/learn/feature-engineering" target="_blank">Kaggle — Feature Engineering</a></li>
+    <li><a href="https://www.kaggle.com/learn/machine-learning-explainability" target="_blank">Kaggle — ML Explainability</a></li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Math Column</h2>
+  <p>Learn these topics exactly when they appear in the course.</p>
+  <ul>
+    <li><strong>Linear Algebra:</strong> dot products, matrix multiplication, norms, rank.<br>
+        → <a href="https://www.khanacademy.org/math/linear-algebra" target="_blank">Khan Academy — Linear Algebra</a></li>
+    <li><strong>Calculus (light):</strong> derivatives, partial derivatives, chain rule intuition.<br>
+        → <a href="https://www.khanacademy.org/math/calculus-1/cs1-derivatives" target="_blank">Khan Academy — Derivatives</a></li>
+    <li><strong>Probability:</strong> Bayes theorem, Gaussian, expectation, variance.<br>
+        → <a href="https://www.khanacademy.org/math/statistics-probability/probability-library" target="_blank">Khan — Probability</a></li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Projects</h2>
+  <ul>
+    <li><strong>Regression:</strong> predict prices (housing, Airbnb, etc.).</li>
+    <li><strong>Binary Classifier:</strong> spam vs not-spam, tumor benign vs malignant, etc.</li>
+    <li><strong>End-to-end pipeline:</strong> cleaning → feature engineering → training → evaluation → small Streamlit/FastAPI app.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>Navigation</h2>
+  <ul>
+    <li>Previous: <a href="phase0.html">Phase 0 — Refreshers</a></li>
+    <li>Next: <a href="phase2.html">Phase 2 — Deep Learning</a></li>
+  </ul>
+</section>
+
+  </main>
+</body>
+</html>
